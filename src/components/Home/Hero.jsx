@@ -8,26 +8,27 @@ import heroImage3 from '../../assets/images/first.jpeg';
 const Hero = () => {
   const [current, setCurrent] = useState(0);
 
-  const slides = [
-    {
-      image: heroImage1,
-      title: "Welcome Home",
-      subtitle: "A place where love is felt and lives are changed.",
-      cta: "Plan Your Visit"
-    },
-    {
-      image: heroImage2,
-      title: "Worship With Us",
-      subtitle: "Join us every Sunday for a powerful time in God's presence.",
-      cta: "Watch Online"
-    },
-    {
-      image: heroImage3,
-      title: "Community & Growth",
-      subtitle: "Connect with others and grow in your faith journey.",
-      cta: "Join a Group"
-    }
-  ];
+  
+const slides = [
+  {
+    image: heroImage1,
+    title: "Welcome to a Home for All",
+    subtitle: "One Church, Many Locations. Discover your place in our vibrant community.",
+    cta: "Learn More"
+  },
+  {
+    image: heroImage2,
+    title: "Experience God's Power", 
+    subtitle: "Join us for life-transforming teachings and vibrant worship.",
+    cta: "Watch Online"
+  },
+  {
+    image: heroImage3,
+    title: "Get Involved",
+    subtitle: "You are important, and we value your contribution to the Kingdom.",
+    cta: "Join a Department"
+  }
+];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -130,6 +131,7 @@ const Hero = () => {
       </div>
     </div>
   );
+
 };
 
 export default Hero;

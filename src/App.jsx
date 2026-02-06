@@ -1,5 +1,7 @@
+import { Info } from 'lucide-react';
 import Navbar from './components/Common/Navbar';
 import Hero from './components/Home/Hero';
+import InfoCards from './components/Home/InfoCards';
 
 function App() {
   return (
@@ -7,6 +9,7 @@ function App() {
       {/* The Navigation Bar */}
       <Navbar />
       <Hero />
+      <InfoCards />
 
       {/* Temporary Page Content (Placeholder) */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
