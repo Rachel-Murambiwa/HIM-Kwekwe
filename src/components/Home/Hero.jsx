@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import heroImage1 from '../../assets/images/2026.png';
-import heroImage2 from '../../assets/images/pastorS.jpeg';
-import heroImage3 from '../../assets/images/first.jpeg';
+import heroImage1 from '../../assets/images/hero1.jpg';
+import heroImage2 from '../../assets/images/hero2.jpg';
+import heroImage3 from '../../assets/images/hero3.jpg';
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
@@ -12,21 +12,12 @@ const Hero = () => {
 const slides = [
   {
     image: heroImage1,
-    title: "Welcome to a Home for All",
-    subtitle: "One Church, Many Locations. Discover your place in our vibrant community.",
-    cta: "Learn More"
   },
   {
     image: heroImage2,
-    title: "Experience God's Power", 
-    subtitle: "Join us for life-transforming teachings and vibrant worship.",
-    cta: "Watch Online"
   },
   {
     image: heroImage3,
-    title: "Get Involved",
-    subtitle: "You are important, and we value your contribution to the Kingdom.",
-    cta: "Join a Department"
   }
 ];
 

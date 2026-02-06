@@ -5,8 +5,8 @@ const InfoCards = () => {
   const cards = [
     {
       icon: <MapPin size={40} className="text-[#B22222]" />,
-      title: "Find a Zone",
-      description: "There is a zone near you. Connect with believers in your area.",
+      title: "Visit us.",
+      description: "Connect with believers in the City of Kwekwe.",
       link: "Click Here"
     },
     {

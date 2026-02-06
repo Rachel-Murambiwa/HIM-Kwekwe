@@ -1,34 +1,27 @@
-import { Info } from 'lucide-react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Common/Navbar';
-import Hero from './components/Home/Hero';
-import InfoCards from './components/Home/InfoCards';
+import Footer from './components/Common/Footer';
+// Import your new Pages
+import Home from './pages/Home';
+import GalleryPage from './pages/GalleryPage';
+import ContactPage from './pages/ContactPage';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
-      {/* The Navigation Bar */}
+      {/* Navbar stays outside Routes so it is visible on EVERY page */}
       <Navbar />
-      <Hero />
-      <InfoCards />
 
-      {/* Temporary Page Content (Placeholder) */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-            Welcome to <span className="text-[#B22222]">HIM Kwekwe</span>
-          </h1>
-          <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Building a zone of impact and excellence.
-          </p>
-          <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div className="rounded-md shadow">
-              <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#B22222] hover:bg-red-700 md:py-4 md:text-lg md:px-10">
-                Join Us
-              </a>
-            </div>
-          </div>
-        </div>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        {/* You can add more routes later, e.g., <Route path="/about" element={<About />} /> */}
+      </Routes>
+      <Footer/>
+
     </div>
   );
 }
