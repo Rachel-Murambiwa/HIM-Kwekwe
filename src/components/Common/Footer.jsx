@@ -1,76 +1,74 @@
 import React from 'react';
 import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-// import logo from '../../assets/images/logo.png'; // Use if you have a logo
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
+    // REDUCED PADDING: Changed pt-16/pb-8 to py-8 (and py-12 on desktop)
+    <footer className="bg-gray-900 text-white py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        
+        {/* CHANGED GRID: Uses grid-cols-2 on mobile (instead of 1) to save vertical space */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           
-          {/* Column 1: Brand & Vision */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-4">
+          {/* Column 1: Brand (Spans full width on very small screens, or just 1 col on larger mobile) */}
+          <div className="col-span-2 sm:col-span-1 lg:col-span-1">
+            <h3 className="text-xl font-bold text-white mb-3">
               HIM <span className="text-[#B22222]">Kwekwe</span>
             </h3>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              Raising a generation of Kingdom-minded believers. Join us as we impact our city and nation for Christ.
+            <p className="text-gray-400 text-sm mb-4 leading-relaxed max-w-xs">
+              Raising a generation of Kingdom-minded believers.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
-                <Facebook size={20} />
+            <div className="flex space-x-3">
+              <a href="#" className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
+                <Facebook size={16} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
-                <Instagram size={20} />
+              <a href="#" className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
+                <Instagram size={16} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
-                <Youtube size={20} />
+              <a href="#" className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#B22222] transition-colors">
+                <Youtube size={16} />
               </a>
             </div>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="text-lg font-bold mb-6 border-b border-gray-800 pb-2 inline-block">Quick Links</h4>
-            <ul className="space-y-3 text-gray-400">
-              <li><Link to="/" className="hover:text-[#B22222] transition-colors">Home</Link></li>
-              <li><Link to="/about" className="hover:text-[#B22222] transition-colors">About Us</Link></li>
-              <li><Link to="/events" className="hover:text-[#B22222] transition-colors">Upcoming Events</Link></li>
-              <li><Link to="/gallery" className="hover:text-[#B22222] transition-colors">Gallery</Link></li>
-              <li><Link to="/contact" className="hover:text-[#B22222] transition-colors">Contact Us</Link></li>
+            <h4 className="text-base font-bold mb-3 border-b border-gray-800 pb-1 inline-block">Quick Links</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><Link to="/" className="hover:text-[#B22222]">Home</Link></li>
+              <li><Link to="/about" className="hover:text-[#B22222]">About Us</Link></li>
+              <li><Link to="/events" className="hover:text-[#B22222]">Events</Link></li>
+              <li><Link to="/gallery" className="hover:text-[#B22222]">Gallery</Link></li>
+              <li><Link to="/contact" className="hover:text-[#B22222]">Contact</Link></li>
             </ul>
           </div>
 
           {/* Column 3: Ministries */}
           <div>
-            <h4 className="text-lg font-bold mb-6 border-b border-gray-800 pb-2 inline-block">Ministries</h4>
-            <ul className="space-y-3 text-gray-400">
-              <li><a href="#" className="hover:text-[#B22222] transition-colors">Men's Fellowship</a></li>
-              <li><a href="#" className="hover:text-[#B22222] transition-colors">Ladies Ministry</a></li>
-              <li><a href="#" className="hover:text-[#B22222] transition-colors">Youth & Young Adults</a></li>
-              <li><a href="#" className="hover:text-[#B22222] transition-colors">Children's Church</a></li>
-              <li><a href="#" className="hover:text-[#B22222] transition-colors">Praise & Worship</a></li>
+            <h4 className="text-base font-bold mb-3 border-b border-gray-800 pb-1 inline-block">Ministries</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><a href="#" className="hover:text-[#B22222]">Men's Fellowship</a></li>
+              <li><a href="#" className="hover:text-[#B22222]">Ladies Ministry</a></li>
+              <li><a href="#" className="hover:text-[#B22222]">Youth & Young Adults</a></li>
+              <li><a href="#" className="hover:text-[#B22222]">Children's Church</a></li>
             </ul>
           </div>
 
-          {/* Column 4: Contact Info */}
-          <div>
-            <h4 className="text-lg font-bold mb-6 border-b border-gray-800 pb-2 inline-block">Visit Us</h4>
-            <ul className="space-y-4 text-gray-400">
+          {/* Column 4: Contact Info (Spans full width on very small screens if needed) */}
+          <div className="col-span-2 sm:col-span-1 lg:col-span-1">
+            <h4 className="text-base font-bold mb-3 border-b border-gray-800 pb-1 inline-block">Visit Us</h4>
+            <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-start">
-                <MapPin className="text-[#B22222] mr-3 mt-1" size={20} />
-                <span>
-                  123 Church Street,<br />
-                  Kwekwe, Zimbabwe
-                </span>
+                <MapPin className="text-[#B22222] mr-2 mt-0.5 flex-shrink-0" size={16} />
+                <span>8493 Glenwood, Kwekwe</span>
               </li>
               <li className="flex items-center">
-                <Phone className="text-[#B22222] mr-3" size={20} />
-                <span>+263 77 123 4567</span>
+                <Phone className="text-[#B22222] mr-2 flex-shrink-0" size={16} />
+                <span>+263 71 412 8046</span>
               </li>
               <li className="flex items-center">
-                <Mail className="text-[#B22222] mr-3" size={20} />
+                <Mail className="text-[#B22222] mr-2 flex-shrink-0" size={16} />
                 <span>info@himkwekwe.org</span>
               </li>
             </ul>
@@ -79,11 +77,13 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar: Copyright */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} Heartfelt International Ministries Kwekwe. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
+        <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs">
+          <p className="text-center md:text-left mb-2 md:mb-0">
+            &copy; {new Date().getFullYear()} HIM Kwekwe. All rights reserved.
+          </p>
+          <div className="flex space-x-4">
+            <a href="#" className="hover:text-white">Privacy</a>
+            <a href="#" className="hover:text-white">Terms</a>
           </div>
         </div>
       </div>
