@@ -7,6 +7,7 @@ import men from '../../assets/images/men1.jpg';
 import pioneers from '../../assets/images/pio1.jpg';
 import cmd1 from '../../assets/images/cmd1.jpg';
 import cmd2 from '../../assets/images/cmd2.jpg';
+import wof from '../../assets/images/wof1.jpg';
 
 // --- CONFIGURATION ---
 
@@ -60,7 +61,7 @@ const ministries = [
   {
     title: "Women on Fire",
     desc: "Raising virtuous women who are fervent in prayer and influential in their world.",
-    image: "https://via.placeholder.com/500x700?text=Women+on+Fire"
+    image: wof // Single Image
   },
   {
     title: "Pioneers",
