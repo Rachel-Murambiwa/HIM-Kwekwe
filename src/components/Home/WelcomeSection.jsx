@@ -8,13 +8,16 @@ import generals2 from '../../assets/images/image.png';
 import generals3 from '../../assets/images/apostle1.jpg';
 import generals4 from '../../assets/images/pastorc1.jpg';
 import generals5 from '../../assets/images/apostle2.jpg';
+import generals6 from '../../assets/images/generals2.jpg';
 // 2. Zonal Pastor
 import pastorS from '../../assets/images/pastorS.jpeg';
 import pastorS2 from '../../assets/images/pastors2.jpg';
 import pastorS3 from '../../assets/images/pastors3.jpeg';
-import pastorS4 from '../../assets/images/pastors4.jpeg';
+import pastorS4 from '../../assets/images/pastors4.jpg';
 import pastorS5 from '../../assets/images/pastors5.jpg'; 
 import pastorS6 from '../../assets/images/pastors6.jpg';
+import pastorS7 from '../../assets/images/pastors7.jpg';
+import pastorS8 from '../../assets/images/pastors8.jpg'; // Optional 7th Image
 
 import murambiwa from '../../assets/images/mbizo.jpeg'; 
 import murambiwa2 from '../../assets/images/mbizo2.jpeg';
@@ -29,7 +32,8 @@ const founderImages = [
   generals2,
   generals3,
   generals4,
-  generals5
+  generals5,
+    generals6
 ];
 
 const zonalImages = [
@@ -38,7 +42,9 @@ const zonalImages = [
   pastorS3,
   pastorS4,
   pastorS5,
-  pastorS6
+  pastorS6,
+    pastorS7,
+    pastorS8 // Optional 7th Image
 
 ];
 

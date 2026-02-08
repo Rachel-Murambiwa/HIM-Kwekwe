@@ -5,6 +5,7 @@ import heroImage1 from '../../assets/images/hero1.jpg';
 import heroImage2 from '../../assets/images/hero2.jpg';
 import heroImage3 from '../../assets/images/hero3.jpg';
 import heroImage4 from '../../assets/images/hero4.jpg';
+import heroImage5 from '../../assets/images/hero6.jpg'; // Optional 5th Image
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
@@ -13,7 +14,8 @@ const Hero = () => {
     { image: heroImage1 },
     { image: heroImage2 },
     { image: heroImage3 },
-    { image: heroImage4 }
+    { image: heroImage4 },
+    { image: heroImage5 } 
   ];
 
   useEffect(() => {

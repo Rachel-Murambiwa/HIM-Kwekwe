@@ -8,7 +8,16 @@ import pioneers from '../../assets/images/pio1.jpg';
 import cmd1 from '../../assets/images/cmd1.jpg';
 import cmd2 from '../../assets/images/cmd2.jpg';
 import wof from '../../assets/images/wof1.jpg';
-
+import cmd3 from '../../assets/images/cmd3.jpg';
+import cmd4 from '../../assets/images/cmd4.jpg';
+import cmd5 from '../../assets/images/cmd5.jpg';
+import cmd6 from '../../assets/images/cmd6.jpg';
+import pioneers2 from '../../assets/images/pio3.jpg';
+import cmd7 from '../../assets/images/cmd7.jpg';
+import cmd8 from '../../assets/images/cmd8.jpg';
+import men2 from '../../assets/images/men2.jpg';
+import men3 from '../../assets/images/men3.jpg';
+import men4 from '../../assets/images/men4.jpg';
 // --- CONFIGURATION ---
 
 const tributeImages = [
@@ -56,22 +65,22 @@ const ministries = [
   {
     title: "Men on Fire",
     desc: "Empowering men to take their place as Kingdom leaders in family and society.",
-    image: men // Single Image
+    images: [men, men2, men3, men4] // Array of Images (Slideshow)
   },
   {
     title: "Women on Fire",
     desc: "Raising virtuous women who are fervent in prayer and influential in their world.",
-    image: wof // Single Image
+    image: wof 
   },
   {
     title: "Pioneers",
     desc: "A vibrant community of youth and young adults blazing a trail for the Gospel.",
-    image: pioneers // Single Image
+    images: [pioneers, pioneers2] // Array of Images (Slideshow)
   },
   {
     title: "Children's Ministry",
     desc: "Nurturing the next generation in the ways of the Lord with fun and biblical truth.",
-    images: [cmd1, cmd2] // Array of Images (Slideshow)
+    images: [cmd1, cmd2, cmd3, cmd4, cmd5, cmd6, cmd7, cmd8] // Array of Images (Slideshow)
   },
   {
     title: "Super Singles",
@@ -270,12 +279,12 @@ const AboutContent = () => {
                 
                 {/* --- SMART RENDERING: Slideshow OR Image --- */}
                 {ministry.images ? (
-                  // CASE 1: It has an ARRAY of images (like Children's Ministry)
+                  // CASE 1: Array of images
                   <div className="absolute inset-0 h-full w-full">
                     <MiniSlideshow images={ministry.images} interval={3500 + (index * 500)} />
                   </div>
                 ) : (
-                  // CASE 2: It has a SINGLE image (like Men/Pioneers)
+                  // CASE 2: Single image
                   <img 
                     src={ministry.image} 
                     alt={ministry.title} 
@@ -283,11 +292,11 @@ const AboutContent = () => {
                   />
                 )}
 
-                {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-300 pointer-events-none"></div>
+                {/* Dark Gradient Overlay - FIXED WITH Z-10 */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-300 pointer-events-none z-10"></div>
 
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+                {/* Content - FIXED WITH Z-20 */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 pointer-events-none z-20">
                   <div className="w-12 h-1 bg-[#B22222] mb-4 rounded-full"></div>
                   <h3 className="text-2xl font-bold text-white mb-2">{ministry.title}</h3>
                   <p className="text-gray-300 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">

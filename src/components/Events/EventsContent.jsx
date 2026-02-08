@@ -5,6 +5,8 @@ import anniversary from '../../assets/images/anniversary.jpeg';
 import m633 from '../../assets/images/m633.jpeg';
 import pioneers from '../../assets/images/pio2.jpeg';
 import music from '../../assets/images/mega.jpeg';
+import fruitfulness from '../../assets/images/fruitfulness.jpg';
+import revival from '../../assets/images/revival.jpg';
 
 const EventsContent = () => {
   // --- 1. EVENTS DATA ---
@@ -70,6 +72,26 @@ const EventsContent = () => {
       description: "A weekend of worship, prayer, and prophecy.",
       image: music,
       category: "Conference"
+    },
+    {
+      id: 7,
+      title: "International Day of Fruitfulness",
+        date: "2026-02-07",
+        time: "09:00 AM",
+        location: "International Overflow Center (IOC)",
+        description: "Expecting parents to come and receive their blessings of fruitfulness in this special service.",
+        image: fruitfulness,
+        category: "Online"
+    },
+    {
+        id: 8,
+        title: "90 Days of Prayer and Fasting for Zimbabwe",
+        date: "2025-11-01 - 2026-01-31", 
+        time: "06:00 PM",
+        location: "Kwekwe City Zone Sanctuary",
+        description: "A special 90-day period of prayer and fasting for the nation of Zimbabwe. REVIVE US ZIMBABWE!",
+        image: revival,
+        category: "Prayer"
     }
   ];
 
