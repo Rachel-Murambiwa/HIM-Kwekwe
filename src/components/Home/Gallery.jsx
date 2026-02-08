@@ -1,160 +1,207 @@
-import React, { useState } from 'react';
-import { X, ZoomIn, Filter } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { X, ZoomIn, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 
-// --- AUTOMATIC GROUPING ---
-// 1. Get all images from subfolders (e.g., gallery/2024/img.jpg)
+// --- AUTOMATIC IMPORT ---
 const imageModules = import.meta.glob('../../assets/images/gallery/*/*.{png,jpg,jpeg,svg}', { eager: true });
 
-// 2. Process images into groups by Year
-const galleryData = {};
+// --- PROCESS DATA ---
+const allImages = [];
+const yearsSet = new Set();
 
 Object.keys(imageModules).forEach((path) => {
-  // Path looks like: "../../assets/images/gallery/2024/pic.jpg"
   const parts = path.split('/');
-  const year = parts[parts.length - 2]; // This grabs "2024"
-  
-  if (!galleryData[year]) {
-    galleryData[year] = [];
-  }
-  
-  galleryData[year].push({
+  const year = parts[parts.length - 2];
+  yearsSet.add(year);
+
+  allImages.push({
+    id: path,
     url: imageModules[path].default,
-    id: path
+    year: parseInt(year)
   });
 });
 
-// 3. Sort years (Newest first)
-const sortedYears = Object.keys(galleryData).sort((a, b) => b - a);
+// SORT: Newest Year First
+allImages.sort((a, b) => b.year - a.year);
+
+// Sort years for filter buttons
+const sortedYears = Array.from(yearsSet).sort((a, b) => b - a);
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [filterYear, setFilterYear] = useState('All'); // Default to showing everything
+  const [selectedYears, setSelectedYears] = useState([]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // FIX: Initialize with a smart check to avoid "Mobile Flash" on Desktop
+  const [numColumns, setNumColumns] = useState(() => {
+    if (typeof window !== 'undefined') {
+       if (window.innerWidth >= 1024) return 3;
+       if (window.innerWidth >= 768) return 2;
+    }
+    return 1; 
+  });
 
-  // Decide which years to display based on the dropdown selection
-  const visibleYears = filterYear === 'All' 
-    ? sortedYears 
-    : [filterYear];
+  // Handle Screen Resize
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth >= 1024) setNumColumns(3); // Desktop
+      else if (window.innerWidth >= 768) setNumColumns(2); // Tablet
+      else setNumColumns(1); // Mobile
+    };
+    
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
+
+  // Filter Images (Optimized)
+  const visibleImages = useMemo(() => {
+    return selectedYears.length === 0
+      ? allImages
+      : allImages.filter(img => selectedYears.includes(String(img.year)));
+  }, [selectedYears]);
+
+  // Distribute Images into Columns (Left -> Right -> Left...)
+  const columnImages = useMemo(() => {
+    const cols = Array.from({ length: numColumns }, () => []);
+    visibleImages.forEach((img, index) => {
+      const colIndex = index % numColumns;
+      cols[colIndex].push(img);
+    });
+    return cols;
+  }, [visibleImages, numColumns]);
+
+  // Toggle Selection
+  const toggleYear = (year) => {
+    if (selectedYears.includes(year)) {
+      setSelectedYears(selectedYears.filter(y => y !== year));
+    } else {
+      setSelectedYears([...selectedYears, year]);
+    }
+  };
+
+  // Lightbox Controls
+  const openLightbox = (img) => {
+    const index = visibleImages.findIndex(i => i.id === img.id);
+    setCurrentImageIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const nextImage = (e) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % visibleImages.length);
+  };
+
+  const prevImage = (e) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + visibleImages.length) % visibleImages.length);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return;
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') setLightboxOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
 
   return (
-    <section id="gallery" className="py-20 bg-gray-50">
+    <section id="gallery" className="py-20 bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Header */}
+        {/* Header */}
         <div className="text-center mb-12">
-          <h4 className="text-[#B22222] font-bold uppercase tracking-wider mb-2">
-            Moments of Grace
-          </h4>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-            Our Gallery
-          </h2>
+          <h4 className="text-[#B22222] font-bold uppercase tracking-wider mb-2">Moments of Grace</h4>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Our Gallery</h2>
           <div className="w-24 h-1 bg-[#FFD700] mx-auto mt-4 rounded-full"></div>
         </div>
 
-        {/* --- FILTER DROPDOWN --- */}
-        <div className="flex justify-center mb-12">
-          <div className="relative inline-block w-64">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Filter className="text-[#B22222]" size={20} />
-            </div>
-            <select
-              value={filterYear}
-              onChange={(e) => setFilterYear(e.target.value)}
-              className="block w-full pl-10 pr-4 py-3 text-base border-2 border-gray-200 focus:outline-none focus:border-[#B22222] sm:text-sm rounded-lg shadow-sm bg-white hover:border-gray-300 transition-colors cursor-pointer appearance-none"
-            >
-              <option value="All">Show All Years</option>
-              {sortedYears.map((year) => (
-                <option key={year} value={year}>
-                  {year} Collection
-                </option>
-              ))}
-            </select>
-            {/* Custom Arrow Icon */}
-            <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <button
+            onClick={() => setSelectedYears([])}
+            className={`px-5 py-2 rounded-full text-sm font-bold transition-all border-2 
+              ${selectedYears.length === 0 ? 'bg-[#B22222] text-white border-[#B22222]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#B22222]'}`}
+          >
+            All Years
+          </button>
+          {sortedYears.map((year) => {
+            const isActive = selectedYears.includes(year);
+            return (
+              <button
+                key={year}
+                onClick={() => toggleYear(year)}
+                className={`px-5 py-2 rounded-full text-sm font-bold transition-all border-2 flex items-center gap-2
+                  ${isActive ? 'bg-[#B22222] text-white border-[#B22222]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#B22222]'}`}
+              >
+                {isActive && <Check size={14} />} {year}
+              </button>
+            );
+          })}
         </div>
 
-        {/* --- LOOP THROUGH VISIBLE YEARS --- */}
-        {visibleYears.map((year) => (
-          <div key={year} className="mb-16 animate-fade-in-up">
-            
-            {/* Year Header */}
-            <div className="flex items-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-800 border-l-4 border-[#B22222] pl-4">
-                {year}
-              </h3>
-              <div className="flex-grow h-px bg-gray-200 ml-4"></div>
-            </div>
-
-            {/* Grid for this Year */}
-            {galleryData[year] && galleryData[year].length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {galleryData[year].map((image) => (
-                  <div 
-                    key={image.id}
-                    onClick={() => setSelectedImage(image)}
-                    className="group relative h-64 cursor-pointer overflow-hidden rounded-xl shadow-lg bg-white"
-                  >
-                    <img 
-                      src={image.url} 
-                      alt={`Gallery ${year}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
-                      <ZoomIn size={40} className="text-[#FFD700]" />
-                    </div>
+        {/* --- MANUAL MASONRY GRID --- */}
+        {/* Added w-full to ensure it stretches on large screens */}
+        <div className="flex gap-4 items-start w-full">
+          {columnImages.map((col, colIndex) => (
+            // Added min-w-0 to prevent flex overflow bugs
+            <div key={colIndex} className="flex-1 flex flex-col gap-4 min-w-0">
+              {col.map((image) => (
+                <div 
+                  key={image.id}
+                  onClick={() => openLightbox(image)}
+                  className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md bg-white w-full"
+                >
+                  <img 
+                    src={image.url} 
+                    alt="Gallery"
+                    className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <ZoomIn size={32} className="text-white drop-shadow-md" />
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500 italic">No images found for this year.</p>
-            )}
 
-          </div>
-        ))}
+                  {/* Year Badge */}
+                  <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    {image.year}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
 
-        {/* Fallback if no years exist at all */}
-        {sortedYears.length === 0 && (
-          <div className="text-center py-10">
-            <p className="text-gray-500 text-lg">
-              No images found. Please add folders (e.g., "2024") to <code>src/assets/images/gallery/</code>
-            </p>
-          </div>
+        {visibleImages.length === 0 && (
+          <p className="text-center text-gray-500 mt-10">No images found for the selected years.</p>
         )}
 
       </div>
 
       {/* Lightbox Modal */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button 
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 text-white hover:text-[#B22222] transition-colors"
-          >
-            <X size={40} />
+      {lightboxOpen && (
+        <div className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center backdrop-blur-sm" onClick={() => setLightboxOpen(false)}>
+          <button className="absolute top-6 right-6 text-white hover:text-[#B22222] transition-colors z-50 bg-black/20 p-2 rounded-full" onClick={() => setLightboxOpen(false)}>
+            <X size={32} />
           </button>
-
-          <div 
-            className="max-w-5xl max-h-[85vh] overflow-hidden rounded-lg shadow-2xl relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img 
-              src={selectedImage.url} 
-              alt="Full view" 
-              className="w-full h-full object-contain"
-            />
+          <button onClick={prevImage} className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-[#B22222] transition-colors p-2 md:p-3 rounded-full bg-black/20 hover:bg-white/10 z-50">
+            <ChevronLeft size={32} />
+          </button>
+          <div className="w-full h-full p-4 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img src={visibleImages[currentImageIndex].url} alt="Full view" className="max-h-[90vh] max-w-[95vw] object-contain rounded-sm shadow-2xl" />
+          </div>
+          <button onClick={nextImage} className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-[#B22222] transition-colors p-2 md:p-3 rounded-full bg-black/20 hover:bg-white/10 z-50">
+            <ChevronRight size={32} />
+          </button>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium bg-black/50 px-3 py-1 rounded-full">
+            {currentImageIndex + 1} / {visibleImages.length}
           </div>
         </div>
       )}
-
     </section>
   );
 };

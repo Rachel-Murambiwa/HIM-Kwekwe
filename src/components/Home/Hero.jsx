@@ -39,7 +39,7 @@ const slides = [
   return (
     // CHANGE 1: Use 'h-[85vh]' (85% of screen height). 
     // This creates a tall viewing area that fits portrait photos perfectly.
-    <div className="relative h-[85vh] w-full bg-gray-900 group overflow-hidden">
+    <div className="relative h-[10rem] w-full bg-gray-900 group overflow-hidden">
       
       {slides.map((slide, index) => (
         <div
