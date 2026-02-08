@@ -13,10 +13,14 @@ import pastorS from '../../assets/images/pastorS.jpeg';
 import pastorS2 from '../../assets/images/pastors2.jpg';
 import pastorS3 from '../../assets/images/pastors3.jpeg';
 import pastorS4 from '../../assets/images/pastors4.jpeg';
-// 3. Resident Pastor / First Lady (Using your 'first.jpeg' as placeholder)
+import pastorS5 from '../../assets/images/pastors5.jpg'; 
+import pastorS6 from '../../assets/images/pastors6.jpg';
+
 import murambiwa from '../../assets/images/mbizo.jpeg'; 
 import murambiwa2 from '../../assets/images/mbizo2.jpeg';
-import murambiwa3 from '../../assets/images/mbizo3.jpeg'; // Placeholder for Resident Pastor / First Lady
+import murambiwa3 from '../../assets/images/mbizo3.jpeg';
+import murambiwa4 from '../../assets/images/mbizo4.jpg';
+// Placeholder for Resident Pastor / First Lady
 
 // --- SLIDESHOW ARRAYS ---
 
@@ -33,12 +37,16 @@ const zonalImages = [
   pastorS2,
   pastorS3,
   pastorS4,
+  pastorS5,
+  pastorS6
+
 ];
 
 const residentImages = [
     murambiwa,
     murambiwa2,
     murambiwa3, 
+    murambiwa4
 ];
 
 const WelcomeSection = () => {

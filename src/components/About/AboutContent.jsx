@@ -2,6 +2,12 @@ import React from 'react';
 import { Heart, Star, Shield, Users, Target, BookOpen, Quote, Video, Image as ImageIcon } from 'lucide-react';
 import MiniSlideshow from '../Common/MiniSlideshow'; 
 
+// --- YOUR SAVED IMAGES ---
+import men from '../../assets/images/men1.jpg';
+import pioneers from '../../assets/images/pio1.jpg';
+import cmd1 from '../../assets/images/cmd1.jpg';
+import cmd2 from '../../assets/images/cmd2.jpg';
+
 // --- CONFIGURATION ---
 
 const tributeImages = [
@@ -41,6 +47,40 @@ const values = [
     icon: <BookOpen size={32} />,
     title: "The Word",
     desc: "We stand firmly on the uncompromised, life-changing Word of God."
+  }
+];
+
+// --- MINISTRIES DATA ---
+const ministries = [
+  {
+    title: "Men on Fire",
+    desc: "Empowering men to take their place as Kingdom leaders in family and society.",
+    image: men // Single Image
+  },
+  {
+    title: "Women on Fire",
+    desc: "Raising virtuous women who are fervent in prayer and influential in their world.",
+    image: "https://via.placeholder.com/500x700?text=Women+on+Fire"
+  },
+  {
+    title: "Pioneers",
+    desc: "A vibrant community of youth and young adults blazing a trail for the Gospel.",
+    image: pioneers // Single Image
+  },
+  {
+    title: "Children's Ministry",
+    desc: "Nurturing the next generation in the ways of the Lord with fun and biblical truth.",
+    images: [cmd1, cmd2] // Array of Images (Slideshow)
+  },
+  {
+    title: "Super Singles",
+    desc: "A community for singles to grow, connect, and thrive in their walk with God.",
+    image: "https://via.placeholder.com/500x700?text=Super+Singles"
+  },
+  {
+    title: "The Elderly",
+    desc: "Honoring our wisdom keepers with fellowship, care, and spiritual support.",
+    image: "https://via.placeholder.com/500x700?text=The+Elderly"
   }
 ];
 
@@ -112,17 +152,15 @@ const AboutContent = () => {
             </div>
           </div>
 
-          {/* B. Multimedia Section (Video & Slideshow) */}
+          {/* B. Multimedia Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 items-start">
             
-            {/* 1. Video Column - STANDARD HEIGHT (Widescreen) */}
+            {/* Video Column */}
             <div className="bg-white p-4 rounded-3xl shadow-xl border border-gray-100 flex flex-col">
               <h4 className="font-bold text-gray-900 mb-4 flex items-center px-2">
                 <Video size={20} className="text-[#B22222] mr-2" />
                 Sermon Highlight
               </h4>
-              
-              {/* FIXED: Standard height (h-64 mobile, h-80 desktop) so it's not too big */}
               <div className="w-full bg-black rounded-2xl overflow-hidden shadow-lg h-64 md:h-80">
                 <iframe 
                   src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FHeartfeltTV%2Fvideos%2F3183375725271317%2F&show_text=false&width=560&t=0" 
@@ -139,20 +177,16 @@ const AboutContent = () => {
               </div>
             </div>
 
-            {/* 2. Photo Slideshow Column - TALL PORTRAIT SIZE */}
+            {/* Photo Slideshow Column */}
             <div className="bg-white p-4 rounded-3xl shadow-xl border border-gray-100 flex flex-col">
               <h4 className="font-bold text-gray-900 mb-4 flex items-center px-2">
                 <ImageIcon size={20} className="text-[#B22222] mr-2" />
                 Cherished Moments
               </h4>
-              
-              {/* FIXED: TALL height (h-[500px]) on all screens to fit portrait photos */}
               <div className="relative w-full rounded-2xl overflow-hidden shadow-lg h-[500px] group">
                   <div className="h-full w-full">
                       <MiniSlideshow images={tributeImages} interval={4000} />
                   </div>
-                  
-                  {/* Overlay Text */}
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 z-20 pointer-events-none">
                     <p className="text-white text-xl font-bold text-center mb-1">
                       Celebrating a life well lived
@@ -211,6 +245,57 @@ const AboutContent = () => {
               <p className="text-gray-600">{item.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 5. MINISTRIES SECTION */}
+      <section id="ministries" className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h4 className="text-[#B22222] font-bold uppercase tracking-wider mb-2">Get Involved</h4>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Our Ministries</h2>
+            <div className="w-24 h-1 bg-[#B22222] mx-auto mt-4 rounded-full"></div>
+            <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
+              We are a family of believers. Find where you belong and start serving today.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {ministries.map((ministry, index) => (
+              <div 
+                key={index} 
+                className="group relative h-[500px] rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+              >
+                
+                {/* --- SMART RENDERING: Slideshow OR Image --- */}
+                {ministry.images ? (
+                  // CASE 1: It has an ARRAY of images (like Children's Ministry)
+                  <div className="absolute inset-0 h-full w-full">
+                    <MiniSlideshow images={ministry.images} interval={3500 + (index * 500)} />
+                  </div>
+                ) : (
+                  // CASE 2: It has a SINGLE image (like Men/Pioneers)
+                  <img 
+                    src={ministry.image} 
+                    alt={ministry.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                )}
+
+                {/* Dark Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-300 pointer-events-none"></div>
+
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+                  <div className="w-12 h-1 bg-[#B22222] mb-4 rounded-full"></div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{ministry.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    {ministry.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
