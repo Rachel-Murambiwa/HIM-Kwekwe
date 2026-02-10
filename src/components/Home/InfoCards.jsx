@@ -1,59 +1,77 @@
 import React from 'react';
-import { MapPin, Calendar, Handshake } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Import Link for internal pages
+import { MapPin, Calendar, Handshake, ArrowRight } from 'lucide-react';
 
-const InfoCards = () => {
-  const cards = [
+const GetInvolvedSection = () => {
+  
+  // --- UPDATED DATA ARRAY ---
+  const actions = [
     {
       icon: <MapPin size={40} className="text-[#B22222]" />,
       title: "Visit us.",
       description: "Connect with believers in the City of Kwekwe.",
-      link: "Click Here"
+      btnText: "Get Directions",
+      // Google Maps Search Link for HIM Kwekwe
+      url: "",
+      external: true // Mark as external so it opens in new tab
     },
     {
       icon: <Calendar size={40} className="text-[#B22222]" />,
       title: "Upcoming Events",
       description: "Register for 90 days of prayer and fasting for Zimbabwe.",
-      link: "Click Here"
+      btnText: "View Calendar",
+      url: "/events", // Internal Route
+      external: false
     },
     {
       icon: <Handshake size={40} className="text-[#B22222]" />,
       title: "Get Involved",
       description: "You are important, we value your contribution.",
-      link: "Click Here"
+      btnText: "Contact Us",
+      url: "/contact", // Internal Route
+      external: false
     }
   ];
 
   return (
-    <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-20 -mt-24"> 
-          {/* Note: -mt-24 pulls this section UP to overlap the Hero if you want that modern look. 
-              Remove '-mt-24' if you want it to sit normally below. */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {actions.map((item, index) => (
+        <div 
+          key={index} 
+          className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col items-center text-center group"
+        >
+          <div className="bg-red-50 p-4 rounded-full mb-6 group-hover:scale-110 transition-transform">
+            {item.icon}
+          </div>
           
-          {cards.map((card, index) => (
-            <div 
-              key={index} 
-              className="bg-white rounded-xl shadow-xl p-8 text-center border-b-4 border-[#B22222] hover:-translate-y-2 transition-transform duration-300"
+          <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+          <p className="text-gray-600 mb-6 flex-grow">{item.description}</p>
+          
+          {/* --- SMART LINK RENDERING --- */}
+          {item.external ? (
+            // OPTION A: External Link (Google Maps)
+            <a 
+              href='https://maps.app.goo.gl/n5bekD3NYkff2keu8'
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-[#B22222] font-bold flex items-center hover:text-[#8B0000] transition-colors"
             >
-              <div className="flex justify-center mb-6">
-                <div className="p-4 bg-red-50 rounded-full">
-                  {card.icon}
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">{card.title}</h3>
-              <p className="text-gray-600 mb-6">{card.description}</p>
-              <a 
-                href="#" 
-                className="text-[#B22222] font-bold uppercase text-sm tracking-wider hover:underline"
-              >
-                {card.link}
-              </a>
-            </div>
-          ))}
+              {item.btnText} <ArrowRight size={16} className="ml-2" />
+            </a>
+          ) : (
+            // OPTION B: Internal Link (React Router)
+            <Link 
+              to={item.url}
+              className="text-[#B22222] font-bold flex items-center hover:text-[#8B0000] transition-colors"
+            >
+              {item.btnText} <ArrowRight size={16} className="ml-2" />
+            </Link>
+          )}
+          
         </div>
-      </div>
+      ))}
     </div>
   );
 };
 
-export default InfoCards;
+export default GetInvolvedSection;

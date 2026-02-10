@@ -5,23 +5,37 @@ const ServiceTimes = () => {
   // You can update these times to match the specific Kwekwe Zone schedule
   const services = [
     {
-      day: "Sunday Service",
-      time: "09:00 AM - 01:00 PM",
-      description: "Main Worship Service & The Word",
-      highlight: true // This will make the card stand out
+        day: "Monday",
+        time: "10:00 AM - 01:00 PM",
+        description: "Monday Prayer ALtar",
+        highlight: false
     },
-    {
+     {
+      day: "Monday",
+      time: "05:30 PM - 06:30 PM",
+      description: "Zonal Day of Prayer & Fasting",
+      highlight: false
+    },
+     {
       day: "Wednesday",
       time: "05:30 PM - 07:30 PM",
       description: "Midweek Service & Bible Study",
       highlight: false
     },
     {
-      day: "Friday",
-      time: "05:30 PM - 07:30 PM",
-      description: "Prayer & Intercession",
-      highlight: false
+        day: "Thursday",
+        time: "05:30 PM - 06:30 PM",
+        description: "Homegroups Fellowship",
+        highlight: false
+    },
+    {
+      day: "Sunday Service",
+      time: "09:00 AM - 01:00 PM",
+      description: "Main Worship Service & The Word",
+      highlight: true 
     }
+   
+   
   ];
 
   return (

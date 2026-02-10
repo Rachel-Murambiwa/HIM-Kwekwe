@@ -9,6 +9,7 @@ import generals3 from '../../assets/images/apostle1.jpg';
 import generals4 from '../../assets/images/pastorc1.jpg';
 import generals5 from '../../assets/images/apostle2.jpg';
 import generals6 from '../../assets/images/generals2.jpg';
+
 // 2. Zonal Pastor
 import pastorS from '../../assets/images/pastorS.jpeg';
 import pastorS2 from '../../assets/images/pastors2.jpg';
@@ -17,42 +18,15 @@ import pastorS4 from '../../assets/images/pastors4.jpg';
 import pastorS5 from '../../assets/images/pastors5.jpg'; 
 import pastorS6 from '../../assets/images/pastors6.jpg';
 import pastorS7 from '../../assets/images/pastors7.jpg';
-import pastorS8 from '../../assets/images/pastors8.jpg'; // Optional 7th Image
-
-import murambiwa from '../../assets/images/mbizo.jpeg'; 
-import murambiwa2 from '../../assets/images/mbizo2.jpeg';
-import murambiwa3 from '../../assets/images/mbizo3.jpeg';
-import murambiwa4 from '../../assets/images/mbizo4.jpg';
-// Placeholder for Resident Pastor / First Lady
+import pastorS8 from '../../assets/images/pastors8.jpg';
 
 // --- SLIDESHOW ARRAYS ---
-
 const founderImages = [
-  generals,
-  generals2,
-  generals3,
-  generals4,
-  generals5,
-    generals6
+  generals, generals2, generals3, generals4, generals5, generals6
 ];
 
 const zonalImages = [
-  pastorS,
-  pastorS2,
-  pastorS3,
-  pastorS4,
-  pastorS5,
-  pastorS6,
-    pastorS7,
-    pastorS8 // Optional 7th Image
-
-];
-
-const residentImages = [
-    murambiwa,
-    murambiwa2,
-    murambiwa3, 
-    murambiwa4
+  pastorS, pastorS2, pastorS3, pastorS4, pastorS5, pastorS6, pastorS7, pastorS8
 ];
 
 const WelcomeSection = () => {
@@ -75,45 +49,38 @@ const WelcomeSection = () => {
           </p>
         </div>
 
-        {/* --- 3-COLUMN LEADERSHIP GRID --- */}
-        {/* Changed from md:grid-cols-2 to lg:grid-cols-3 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        {/* --- 2-COLUMN LEADERSHIP GRID (Centered) --- */}
+        {/* FIX: Changed to max-w-5xl mx-auto so they are centered. 
+                 Changed grid to specifically use 2 columns. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           
           {/* CARD 1: FOUNDERS */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
             <div className="h-[500px] relative">
               <MiniSlideshow images={founderImages} interval={5000} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end z-20">
-                <div className="p-6 text-left">
-                  <h3 className="text-xl font-bold text-white leading-tight">Apostle T. & Pastor C. Vutabwashe</h3>
-                  <p className="text-[#FFD700] text-sm font-medium mt-1">Founders & Visionaries</p>
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end z-20">
+                <div className="p-8 text-left w-full">
+                  <div className="w-12 h-1 bg-[#B22222] mb-3 rounded-full"></div>
+                  <h3 className="text-2xl font-bold text-white leading-tight">Apostle T. & Pastor C. Vutabwashe</h3>
+                  <p className="text-[#FFD700] text-sm font-bold tracking-wide mt-1 uppercase">Founders & Visionaries</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CARD 2: ZONAL PASTOR */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-shadow duration-300 border-t-4 border-[#B22222]">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1 border-t-4 border-[#B22222]">
             <div className="h-[500px] relative">
                <MiniSlideshow images={zonalImages} interval={4500} />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end z-20">
-                <div className="p-6 text-left">
-                  <h3 className="text-xl font-bold text-white leading-tight">Pastor S. Utahwashe</h3>
-                  <p className="text-[#FFD700] text-sm font-medium mt-1">Kwekwe City Zone Pastor</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 3: RESIDENT PASTOR / FIRST LADY */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-shadow duration-300 border-t-4 border-[#FFD700]">
-            <div className="h-[500px] relative">
-               <MiniSlideshow images={residentImages} interval={4800} />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end z-20">
-                <div className="p-6 text-left">
-                  {/* Update Name/Title Here */}
-                  <h3 className="text-xl font-bold text-white leading-tight">Pastors N. and M. Murambiwa</h3>
-                  <p className="text-[#FFD700] text-sm font-medium mt-1">Mbizo Zone Pastors</p>
+               
+               {/* Gradient Overlay */}
+               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end z-20">
+                <div className="p-8 text-left w-full">
+                  <div className="w-12 h-1 bg-[#FFD700] mb-3 rounded-full"></div>
+                  <h3 className="text-2xl font-bold text-white leading-tight">Pastor S. Utahwashe</h3>
+                  <p className="text-[#FFD700] text-sm font-bold tracking-wide mt-1 uppercase">Kwekwe City Zone Pastor</p>
                 </div>
               </div>
             </div>
